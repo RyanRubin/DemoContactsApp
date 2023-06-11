@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DcaClient.Features.Contacts"
+             x:Class="DcaClient.Features.Contacts.Mobile.ContactListPageMobile"
+             x:DataType="local:ContactListViewModel">
+    <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10" Padding="10">
+        <Label Grid.Row="0" FontSize="Title" Text="Demo Contacts App" />
+        <Border Grid.Row="1">
+            <Entry Text="{Binding SearchText}" />
+        </Border>
+        <ScrollView Grid.Row="2">
+            <VerticalStackLayout Spacing="10" BindableLayout.ItemsSource="{Binding ContactList}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="local:ContactViewModel">
+                        <HorizontalStackLayout Spacing="10">
+                            <HorizontalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:ContactListViewModel}}, Path=ViewContactCommand}"
+                                    CommandParameter="{Binding}" />
+                            </HorizontalStackLayout.GestureRecognizers>
+                            <Border StrokeShape="RoundRectangle 50" WidthRequest="50" HeightRequest="50" VerticalOptions="Center">
+                                <Label Text="{Binding FirstLetterOfContactName}" VerticalOptions="Center" HorizontalOptions="Center" />
+                            </Border>
+                            <Label Text="{Binding ContactName}" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+                <BindableLayout.EmptyView>
+                    <Label Text="No contacts" HorizontalOptions="Center" />
+                </BindableLayout.EmptyView>
+            </VerticalStackLayout>
+        </ScrollView>
+        <Button Grid.Row="2" FontSize="30" Text="+" Padding="0" WidthRequest="50"
+                VerticalOptions="End" HorizontalOptions="End" Command="{Binding AddContactCommand}" />
+    </Grid>
+</ContentPage>
