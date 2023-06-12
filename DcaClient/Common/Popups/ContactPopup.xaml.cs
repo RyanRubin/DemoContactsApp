@@ -18,11 +18,16 @@ public partial class ContactPopup : Popup
 
     private void ContactPopup_Opened(object? sender, PopupOpenedEventArgs e)
     {
-
+        BindingContext = vm;
     }
 
     private void ContactPopup_Closed(object? sender, PopupClosedEventArgs e)
     {
 
+    }
+
+    private void CancelButton_Clicked(object sender, EventArgs e)
+    {
+        Close();
     }
 }

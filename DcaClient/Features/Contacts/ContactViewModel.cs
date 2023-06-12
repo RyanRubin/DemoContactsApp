@@ -44,11 +44,13 @@ public class ContactViewModel : INotifyPropertyChanged
     public ICommand? CallContactCommand { get; }
     public ICommand? TextContactCommand { get; }
     public ICommand? EditContactCommand { get; }
+    public ICommand? SaveContactCommand { get; }
 
     public ContactViewModel()
     {
         CallContactCommand = new CallContactCommand(this);
         TextContactCommand = new TextContactCommand(this);
         EditContactCommand = new EditContactCommand(this);
+        SaveContactCommand = new SaveContactCommand(this);
     }
 }
