@@ -8,7 +8,7 @@
                x:Class="DcaClient.Common.Popups.ContactPopup"
                x:DataType="local:ContactViewModel"
                CanBeDismissedByTappingOutsideOfPopup="False"
-               Size="300,300">
+               Size="300,325">
     <Border BackgroundColor="White">
         <Grid RowDefinitions="Auto,*,Auto" RowSpacing="10" Padding="10">
             <Label Grid.Row="0" FontSize="Subtitle" Text="Edit Contact" />

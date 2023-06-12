@@ -14,9 +14,9 @@ public partial class ContactListViewModel : ObservableObject
     [ObservableProperty]
     private ObservableCollection<ContactViewModel> contactList = new();
 
-    private readonly WeakReferenceMessenger messenger;
+    private readonly IMessenger messenger;
 
-    public ContactListViewModel(WeakReferenceMessenger messenger)
+    public ContactListViewModel(IMessenger messenger)
     {
         this.messenger = messenger;
     }
@@ -30,6 +30,6 @@ public partial class ContactListViewModel : ObservableObject
     [RelayCommand]
     private void AddContact()
     {
-        messenger.Send(new ShowContactPopupMessage(new()));
+        messenger.Send(new ShowContactPopupMessage(new(messenger)));
     }
 }

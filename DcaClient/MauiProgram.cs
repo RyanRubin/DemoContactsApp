@@ -37,7 +37,7 @@ public static class MauiProgram
         builder.Services.AddTransient<ContactListViewModel>();
         builder.Services.AddTransient<ContactViewModel>();
 
-        builder.Services.AddSingleton(_ => WeakReferenceMessenger.Default);
+        builder.Services.AddSingleton<IMessenger>(_ => WeakReferenceMessenger.Default);
 
         return builder.Build();
     }
