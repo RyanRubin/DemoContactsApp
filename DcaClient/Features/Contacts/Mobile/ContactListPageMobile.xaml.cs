@@ -19,9 +19,10 @@ public partial class ContactListPageMobile : ContentPage
         this.messenger = messenger;
     }
 
-    private void ContactListPageMobile_NavigatedTo(object? sender, NavigatedToEventArgs e)
+    private async void ContactListPageMobile_NavigatedTo(object? sender, NavigatedToEventArgs e)
     {
         BindingContext = vm;
+        await vm.InitializeViewModel();
         messenger.Register<ShowContactPopupMessage>(this, (_, message) => this.ShowPopup(new ContactPopup(message.Value, messenger)));
     }
 

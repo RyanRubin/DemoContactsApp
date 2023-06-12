@@ -42,6 +42,17 @@ public class ContactViewModel : INotifyPropertyChanged
         }
     }
 
+    private Color? contactColor;
+    public Color? ContactColor
+    {
+        get => contactColor;
+        set
+        {
+            contactColor = value;
+            PropertyChanged?.Invoke(this, new(nameof(ContactColor)));
+        }
+    }
+
     public string FirstLetterOfContactName => ContactName.Length > 0 ? ContactName[0].ToString() : string.Empty;
 
     public ICommand? CallContactCommand { get; }

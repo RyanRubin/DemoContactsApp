@@ -19,7 +19,7 @@
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type local:ContactListViewModel}}, Path=ViewContactCommand}"
                                     CommandParameter="{Binding}" />
                             </HorizontalStackLayout.GestureRecognizers>
-                            <Border StrokeShape="RoundRectangle 50" WidthRequest="50" HeightRequest="50" VerticalOptions="Center">
+                            <Border BackgroundColor="{Binding ContactColor}" StrokeShape="RoundRectangle 10" WidthRequest="50" HeightRequest="50" VerticalOptions="Center">
                                 <Label Text="{Binding FirstLetterOfContactName}" VerticalOptions="Center" HorizontalOptions="Center" />
                             </Border>
                             <Label Text="{Binding ContactName}" VerticalOptions="Center" />

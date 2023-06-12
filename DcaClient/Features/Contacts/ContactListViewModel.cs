@@ -25,6 +25,12 @@ public partial class ContactListViewModel : ObservableObject
         this.contactRepo = contactRepo;
     }
 
+    public async Task InitializeViewModel()
+    {
+        messenger.Register<SaveContactMessage>(this, async (_, _) => await LoadContacts());
+        await LoadContacts();
+    }
+
     [RelayCommand]
     private void ViewContact(ContactViewModel contactViewModel)
     {
@@ -35,5 +41,17 @@ public partial class ContactListViewModel : ObservableObject
     private void AddContact()
     {
         messenger.Send(new ShowContactPopupMessage(new(messenger, contactRepo)));
+    }
+
+    private async Task LoadContacts()
+    {
+        var contacts = await contactRepo.GetAll();
+        var contactVms = contacts.Select(c => new ContactViewModel(messenger, contactRepo)
+        {
+            ContactName = c.Name ?? string.Empty,
+            ContactNumber = c.Number ?? string.Empty,
+            ContactColor = Color.FromRgb(c.ColorR, c.ColorG, c.ColorB)
+        });
+        ContactList = new(contactVms);
     }
 }

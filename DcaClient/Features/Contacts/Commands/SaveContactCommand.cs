@@ -28,7 +28,15 @@ public class SaveContactCommand : ICommand
 
     public void Execute(object? parameter)
     {
-        contactRepo.Add(new ContactEntity { Name = vm.ContactName, Number = vm.ContactNumber });
-        messenger.Send(new CloseContactPopupMessage(null));
+        var random = new Random();
+        contactRepo.Add(new ContactEntity
+        {
+            Name = vm.ContactName,
+            Number = vm.ContactNumber,
+            ColorR = 128 + random.Next(128),
+            ColorG = 128 + random.Next(128),
+            ColorB = 128 + random.Next(128)
+        });
+        messenger.Send(new SaveContactMessage(null));
     }
 }
