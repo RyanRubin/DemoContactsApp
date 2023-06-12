@@ -56,7 +56,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Common\Popups\EditContactPopup.xaml">
+	  <Compile Update="Common\Popups\ContactPopup.xaml.cs">
+	    <DependentUpon>ContactPopup.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Common\Popups\ContactPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Common\Views\EntryWithLabel.xaml">

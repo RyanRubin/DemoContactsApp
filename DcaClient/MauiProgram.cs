@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Mvvm.Messaging;
 using DcaClient.Features.Contacts;
 using DcaClient.Features.Contacts.Desktop;
 using DcaClient.Features.Contacts.Mobile;
@@ -35,6 +36,8 @@ public static class MauiProgram
         builder.Services.AddTransient<AppShellViewModel>();
         builder.Services.AddTransient<ContactListViewModel>();
         builder.Services.AddTransient<ContactViewModel>();
+
+        builder.Services.AddSingleton(_ => WeakReferenceMessenger.Default);
 
         return builder.Build();
     }
