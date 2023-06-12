@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using DcaClient.Features.Contacts.Commands;
 using DcaModels;
 using DcaServices.DataAccess;
@@ -53,12 +54,24 @@ public class ContactViewModel : INotifyPropertyChanged
         }
     }
 
+    private bool isContactNameValid;
+    public bool IsContactNameValid
+    {
+        get => isContactNameValid;
+        set
+        {
+            isContactNameValid = value;
+            PropertyChanged?.Invoke(this, new(nameof(IsContactNameValid)));
+            SaveContactCommand?.NotifyCanExecuteChanged();
+        }
+    }
+
     public string FirstLetterOfContactName => ContactName.Length > 0 ? ContactName[0].ToString() : string.Empty;
 
     public ICommand? CallContactCommand { get; }
     public ICommand? TextContactCommand { get; }
     public ICommand? EditContactCommand { get; }
-    public ICommand? SaveContactCommand { get; }
+    public IRelayCommand? SaveContactCommand { get; }
 
     public ContactViewModel(IMessenger messenger, IRepository<ContactEntity> contactRepo)
     {

@@ -14,7 +14,21 @@
             <Label Grid.Row="0" FontSize="Subtitle" Text="Edit Contact" />
             <ScrollView Grid.Row="1">
                 <VerticalStackLayout Spacing="10">
-                    <views:EntryWithLabel LabelText="Contact name" EntryText="{Binding ContactName}" />
+                    <VerticalStackLayout Spacing="5">
+                        <Label Text="Contact name" />
+                        <Entry Text="{Binding ContactName}">
+                            <Entry.Behaviors>
+                                <toolkit:TextValidationBehavior
+                                    InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                    ValidStyle="{StaticResource ValidEntryStyle}"
+                                    Flags="ValidateOnValueChanged"
+                                    MinimumLength="1"
+                                    MaximumLength="10"
+                                    IsValid="{Binding IsContactNameValid}"
+                                    RegexPattern="\S+" />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </VerticalStackLayout>
                     <views:EntryWithLabel LabelText="Contact number" EntryText="{Binding ContactNumber}" />
                     <Label Text="You've entered:" />
                     <Label Text="{Binding ContactName, StringFormat='Contact name: {0}'}" />

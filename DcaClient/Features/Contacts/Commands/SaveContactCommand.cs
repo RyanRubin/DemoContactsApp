@@ -1,12 +1,12 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using DcaClient.Features.Contacts.Messages;
 using DcaModels;
 using DcaServices.DataAccess;
-using System.Windows.Input;
 
 namespace DcaClient.Features.Contacts.Commands;
 
-public class SaveContactCommand : ICommand
+public class SaveContactCommand : IRelayCommand
 {
     public event EventHandler? CanExecuteChanged;
 
@@ -23,7 +23,7 @@ public class SaveContactCommand : ICommand
 
     public bool CanExecute(object? parameter)
     {
-        return true;
+        return vm.IsContactNameValid;
     }
 
     public void Execute(object? parameter)
@@ -38,5 +38,10 @@ public class SaveContactCommand : ICommand
             ColorB = 128 + random.Next(128)
         });
         messenger.Send(new SaveContactMessage(null));
+    }
+
+    public void NotifyCanExecuteChanged()
+    {
+        CanExecuteChanged?.Invoke(this, new());
     }
 }
