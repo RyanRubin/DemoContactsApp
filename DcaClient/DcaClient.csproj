@@ -56,6 +56,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\DcaServices\DcaServices.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="Common\Popups\ContactPopup.xaml.cs">
 	    <DependentUpon>ContactPopup.xaml</DependentUpon>
 	  </Compile>

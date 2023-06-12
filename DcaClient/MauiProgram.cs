@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using DcaClient.Features.Contacts;
 using DcaClient.Features.Contacts.Desktop;
 using DcaClient.Features.Contacts.Mobile;
+using DcaServices.DataAccess;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DcaClient;
@@ -38,6 +40,9 @@ public static class MauiProgram
         builder.Services.AddTransient<ContactViewModel>();
 
         builder.Services.AddSingleton<IMessenger>(_ => WeakReferenceMessenger.Default);
+
+        builder.Services.AddDbContext<DcaDbContext>(opt => opt.UseInMemoryDatabase("DCA"));
+        builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
 
         return builder.Build();
     }

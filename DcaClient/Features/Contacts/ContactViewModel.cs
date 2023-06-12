@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using DcaClient.Features.Contacts.Commands;
+using DcaModels;
+using DcaServices.DataAccess;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -47,11 +49,11 @@ public class ContactViewModel : INotifyPropertyChanged
     public ICommand? EditContactCommand { get; }
     public ICommand? SaveContactCommand { get; }
 
-    public ContactViewModel(IMessenger messenger)
+    public ContactViewModel(IMessenger messenger, IRepository<ContactEntity> contactRepo)
     {
         CallContactCommand = new CallContactCommand(this);
         TextContactCommand = new TextContactCommand(this);
         EditContactCommand = new EditContactCommand(this);
-        SaveContactCommand = new SaveContactCommand(this, messenger);
+        SaveContactCommand = new SaveContactCommand(this, messenger, contactRepo);
     }
 }
