@@ -28,6 +28,7 @@ public partial class ContactListPageMobile : ContentPage
 
     private void ContactListPageMobile_NavigatingFrom(object? sender, NavigatingFromEventArgs e)
     {
-
+        vm.UnloadViewModel();
+        messenger.Unregister<ShowContactPopupMessage>(this);
     }
 }

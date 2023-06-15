@@ -68,6 +68,8 @@ public class ContactViewModel : INotifyPropertyChanged
 
     public string FirstLetterOfContactName => ContactName.Length > 0 ? ContactName[0].ToString() : string.Empty;
 
+    public int? ContactId { get; set; }
+
     public ICommand? CallContactCommand { get; }
     public ICommand? TextContactCommand { get; }
     public ICommand? EditContactCommand { get; }
@@ -77,7 +79,7 @@ public class ContactViewModel : INotifyPropertyChanged
     {
         CallContactCommand = new CallContactCommand(this);
         TextContactCommand = new TextContactCommand(this);
-        EditContactCommand = new EditContactCommand(this);
+        EditContactCommand = new EditContactCommand(this, messenger);
         SaveContactCommand = new SaveContactCommand(this, messenger, contactRepo);
     }
 }

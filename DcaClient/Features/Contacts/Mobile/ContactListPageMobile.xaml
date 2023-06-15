@@ -13,7 +13,7 @@
             <VerticalStackLayout Spacing="10" BindableLayout.ItemsSource="{Binding ContactList}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="local:ContactViewModel">
-                        <HorizontalStackLayout Spacing="10">
+                        <HorizontalStackLayout Spacing="10" BackgroundColor="Transparent">
                             <HorizontalStackLayout.GestureRecognizers>
                                 <TapGestureRecognizer
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type local:ContactListViewModel}}, Path=ViewContactCommand}"

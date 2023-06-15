@@ -11,10 +11,10 @@ public partial class AppShellViewModel : ObservableObject
 
     public AppShellViewModel()
     {
-#if ANDROID || IOS
+        //#if ANDROID || IOS
         ShellContentTemplate = new DataTemplate(typeof(ContactListPageMobile));
-#elif WINDOWS || MACCATALYST
-        ShellContentTemplate = new DataTemplate(typeof(ContactListPageDesktop));
-#endif
+        //#elif WINDOWS || MACCATALYST
+        //ShellContentTemplate = new DataTemplate(typeof(ContactListPageDesktop));
+        //#endif
     }
 }

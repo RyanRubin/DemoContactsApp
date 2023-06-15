@@ -28,16 +28,29 @@ public class SaveContactCommand : IRelayCommand
 
     public void Execute(object? parameter)
     {
-        var random = new Random();
-        contactRepo.Add(new ContactEntity
+        if (!vm.ContactId.HasValue)
         {
-            Name = vm.ContactName,
-            Number = vm.ContactNumber,
-            ColorR = 128 + random.Next(128),
-            ColorG = 128 + random.Next(128),
-            ColorB = 128 + random.Next(128)
-        });
-        messenger.Send(new SaveContactMessage(null));
+            var random = new Random();
+            var contact = contactRepo.Add(new ContactEntity
+            {
+                Name = vm.ContactName,
+                Number = vm.ContactNumber,
+                ColorR = 128 + random.Next(128),
+                ColorG = 128 + random.Next(128),
+                ColorB = 128 + random.Next(128)
+            });
+            vm.ContactId = contact.Id;
+        }
+        else
+        {
+            contactRepo.Update(new ContactEntity
+            {
+                Id = vm.ContactId.Value,
+                Name = vm.ContactName,
+                Number = vm.ContactNumber
+            });
+        }
+        messenger.Send(new SavedContactMessage(null));
     }
 
     public void NotifyCanExecuteChanged()

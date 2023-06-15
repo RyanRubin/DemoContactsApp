@@ -29,7 +29,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
     public async Task<TEntity?> Get(int id)
     {
         var existing = await dbContext.Set<TEntity>().FindAsync(id);
-        if (existing == null)
+        if (existing is null)
         {
             return null;
         }
@@ -45,7 +45,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
     public async Task Remove(int id)
     {
         var existing = await dbContext.Set<TEntity>().FindAsync(id);
-        if (existing == null)
+        if (existing is null)
         {
             return;
         }
@@ -56,7 +56,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
     public async Task Update(TEntity entity)
     {
         var existing = await dbContext.Set<TEntity>().FindAsync(entity.Id);
-        if (existing == null)
+        if (existing is null)
         {
             return;
         }

@@ -28,18 +28,19 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
 
-#if ANDROID || IOS
+        //#if ANDROID || IOS
         builder.Services.AddTransient<ContactListPageMobile>();
         builder.Services.AddTransient<ContactPageMobile>();
-#elif WINDOWS || MACCATALYST
+        //#elif WINDOWS || MACCATALYST
         builder.Services.AddTransient<ContactListPageDesktop>();
-#endif
+        //#endif
 
         builder.Services.AddTransient<AppShellViewModel>();
         builder.Services.AddTransient<ContactListViewModel>();
         builder.Services.AddTransient<ContactViewModel>();
 
         builder.Services.AddSingleton<IMessenger>(_ => WeakReferenceMessenger.Default);
+        builder.Services.AddSingleton(_ => Shell.Current);
 
         builder.Services.AddDbContext<DcaDbContext>(opt => opt.UseInMemoryDatabase("DCA"));
         builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));

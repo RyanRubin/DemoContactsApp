@@ -23,12 +23,12 @@ public partial class ContactPopup : Popup
     private void ContactPopup_Opened(object? sender, PopupOpenedEventArgs e)
     {
         BindingContext = vm;
-        messenger.Register<SaveContactMessage>(this, (_, _) => Close());
+        messenger.Register<SavedContactMessage>(this, (_, _) => Close());
     }
 
     private void ContactPopup_Closed(object? sender, PopupClosedEventArgs e)
     {
-
+        messenger.Unregister<SavedContactMessage>(this);
     }
 
     private void CancelButton_Clicked(object sender, EventArgs e)
