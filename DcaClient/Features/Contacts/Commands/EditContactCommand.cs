@@ -24,6 +24,6 @@ public class EditContactCommand : ICommand
 
     public void Execute(object? parameter)
     {
-        messenger.Send(new ShowContactPopupMessage(vm));
+        messenger.Send(new ShowContactPopupMessage(vm.ShallowCopy()));
     }
 }

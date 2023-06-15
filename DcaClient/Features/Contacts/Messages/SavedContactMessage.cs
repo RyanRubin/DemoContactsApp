@@ -2,9 +2,9 @@
 
 namespace DcaClient.Features.Contacts.Messages;
 
-public class SavedContactMessage : ValueChangedMessage<object?>
+public class SavedContactMessage : ValueChangedMessage<ContactViewModel>
 {
-    public SavedContactMessage(object? value) : base(value)
+    public SavedContactMessage(ContactViewModel value) : base(value)
     {
     }
 }

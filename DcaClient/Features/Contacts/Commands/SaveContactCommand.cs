@@ -50,7 +50,7 @@ public class SaveContactCommand : IRelayCommand
                 Number = vm.ContactNumber
             });
         }
-        messenger.Send(new SavedContactMessage(null));
+        messenger.Send(new SavedContactMessage(vm));
     }
 
     public void NotifyCanExecuteChanged()

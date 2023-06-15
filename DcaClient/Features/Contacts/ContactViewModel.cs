@@ -70,16 +70,33 @@ public class ContactViewModel : INotifyPropertyChanged
 
     public int? ContactId { get; set; }
 
-    public ICommand? CallContactCommand { get; }
-    public ICommand? TextContactCommand { get; }
-    public ICommand? EditContactCommand { get; }
-    public IRelayCommand? SaveContactCommand { get; }
+    public ICommand? CallContactCommand { get; private set; }
+    public ICommand? TextContactCommand { get; private set; }
+    public ICommand? EditContactCommand { get; private set; }
+    public IRelayCommand? SaveContactCommand { get; private set; }
+
+    private readonly IMessenger messenger;
+    private readonly IRepository<ContactEntity> contactRepo;
 
     public ContactViewModel(IMessenger messenger, IRepository<ContactEntity> contactRepo)
+    {
+        this.messenger = messenger;
+        this.contactRepo = contactRepo;
+        SetCommands();
+    }
+
+    private void SetCommands()
     {
         CallContactCommand = new CallContactCommand(this);
         TextContactCommand = new TextContactCommand(this);
         EditContactCommand = new EditContactCommand(this, messenger);
         SaveContactCommand = new SaveContactCommand(this, messenger, contactRepo);
+    }
+
+    public ContactViewModel ShallowCopy()
+    {
+        var clone = (ContactViewModel)MemberwiseClone();
+        clone.SetCommands();
+        return clone;
     }
 }

@@ -24,10 +24,12 @@ public partial class ContactPageMobile : ContentPage
     {
         BindingContext = Vm;
         messenger.Register<ShowContactPopupMessage>(this, (_, message) => this.ShowPopup(new ContactPopup(message.Value, messenger)));
+        messenger.Register<SavedContactMessage>(this, (_, message) => BindingContext = message.Value);
     }
 
     private void ContactPageMobile_NavigatingFrom(object? sender, NavigatingFromEventArgs e)
     {
         messenger.Unregister<ShowContactPopupMessage>(this);
+        messenger.Unregister<SavedContactMessage>(this);
     }
 }
