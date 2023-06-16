@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DcaServices\DcaServices.csproj" />
+  </ItemGroup>
+
 </Project>
