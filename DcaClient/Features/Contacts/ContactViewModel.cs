@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using DcaClient.Common;
 using DcaClient.Features.Contacts.Commands;
 using DcaModels;
 using DcaServices.DataAccess;
@@ -81,13 +82,13 @@ public class ContactViewModel : INotifyPropertyChanged
     private readonly ISms sms;
     private readonly Shell shell;
 
-    public ContactViewModel(IMessenger messenger, IRepository<ContactEntity> contactRepo, IPhoneDialer phoneDialer, ISms sms, Shell shell)
+    public ContactViewModel(IMessenger messenger, IRepository<ContactEntity> contactRepo, IPhoneDialer phoneDialer, ISms sms, Shell? shell = null)
     {
         this.messenger = messenger;
         this.contactRepo = contactRepo;
         this.phoneDialer = phoneDialer;
         this.sms = sms;
-        this.shell = shell;
+        this.shell = shell ?? RequiredServiceProvider.GetRequiredService<Shell>();
         SetCommands();
     }
 

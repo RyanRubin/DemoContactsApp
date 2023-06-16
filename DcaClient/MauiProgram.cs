@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using CommunityToolkit.Mvvm.Messaging;
+using DcaClient.Common;
 using DcaClient.Features.Contacts;
 using DcaClient.Features.Contacts.Desktop;
 using DcaClient.Features.Contacts.Mobile;
@@ -41,6 +42,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<IMessenger>(_ => WeakReferenceMessenger.Default);
         builder.Services.AddSingleton(_ => Shell.Current);
+        builder.Services.AddSingleton<INavigator, Navigator>();
         builder.Services.AddSingleton(_ => PhoneDialer.Default);
         builder.Services.AddSingleton(_ => Sms.Default);
 
