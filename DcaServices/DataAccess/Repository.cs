@@ -49,7 +49,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class, I
         {
             return;
         }
-        dbContext.Remove(existing);
+        dbContext.Set<TEntity>().Remove(existing);
         await dbContext.SaveChangesAsync();
     }
 

@@ -41,6 +41,8 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<IMessenger>(_ => WeakReferenceMessenger.Default);
         builder.Services.AddSingleton(_ => Shell.Current);
+        builder.Services.AddSingleton(_ => PhoneDialer.Default);
+        builder.Services.AddSingleton(_ => Sms.Default);
 
         builder.Services.AddDbContext<DcaDbContext>(opt => opt.UseInMemoryDatabase("DCA"));
         builder.Services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
