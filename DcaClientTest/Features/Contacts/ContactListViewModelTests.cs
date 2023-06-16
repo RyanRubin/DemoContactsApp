@@ -25,7 +25,10 @@ public class ContactListViewModelTests
     [Fact]
     public async Task InitializeViewModel_ShouldLoadContacts()
     {
-        var testData = new[] { new ContactEntity { Name = "Name A", Number = "123" }, new ContactEntity { Name = "Name B", Number = "456" } };
+        var testData = new[] {
+            new ContactEntity { Name = "Name A", Number = "123" },
+            new ContactEntity { Name = "Name B", Number = "456" }
+        };
         Mock.Get(contactRepo).Setup(repo => repo.GetAll()).ReturnsAsync(testData);
 
         await systemUnderTest.InitializeViewModel();
@@ -48,6 +51,9 @@ public class ContactListViewModelTests
     {
         await systemUnderTest.ViewContactCommand.ExecuteAsync(null);
 
-        Mock.Get(navigator).Verify(nav => nav.GoToAsync(It.IsAny<ShellNavigationState>(), It.IsAny<IDictionary<string, object>>()), Times.Once);
+        Mock.Get(navigator).Verify(nav => nav.GoToAsync(
+            It.IsAny<ShellNavigationState>(),
+            It.IsAny<IDictionary<string, object>>()
+            ), Times.Once);
     }
 }
