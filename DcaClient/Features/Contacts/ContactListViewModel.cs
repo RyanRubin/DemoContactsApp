@@ -15,26 +15,34 @@ public partial class ContactListViewModel : ObservableObject
     private string searchText = string.Empty;
 
     [ObservableProperty]
-    private ObservableCollection<ContactViewModel> contactList = new();
+    private ObservableCollection<ContactViewModel> filteredContactList = new();
+
+    private IEnumerable<ContactViewModel> contactList = Enumerable.Empty<ContactViewModel>();
 
     private readonly IMessenger messenger;
     private readonly IRepository<ContactEntity> contactRepo;
-    private readonly INavigator navigator;
+    private readonly IClientShell shell;
     private readonly IPhoneDialer phoneDialer;
     private readonly ISms sms;
 
     public ContactListViewModel(
         IMessenger messenger,
         IRepository<ContactEntity> contactRepo,
-        INavigator navigator,
+        IClientShell shell,
         IPhoneDialer phoneDialer,
         ISms sms)
     {
         this.messenger = messenger;
         this.contactRepo = contactRepo;
-        this.navigator = navigator;
+        this.shell = shell;
         this.phoneDialer = phoneDialer;
         this.sms = sms;
+    }
+
+    [RelayCommand]
+    private void SearchContacts()
+    {
+        FilteredContactList = new(FilterContacts(contactList));
     }
 
     public async Task InitializeViewModel()
@@ -51,26 +59,37 @@ public partial class ContactListViewModel : ObservableObject
     [RelayCommand]
     private async Task ViewContact(ContactViewModel contactViewModel)
     {
-        await navigator.GoToAsync("contacts/details",
+        await shell.GoToAsync("contacts/details",
             new Dictionary<string, object> { { "Contact", contactViewModel } });
     }
 
     [RelayCommand]
     private void AddContact()
     {
-        messenger.Send(new ShowContactPopupMessage(new(messenger, contactRepo, phoneDialer, sms)));
+        messenger.Send(new ShowContactPopupMessage(new(messenger, contactRepo, phoneDialer, sms, shell)));
     }
 
     private async Task LoadContacts()
     {
         var contacts = await contactRepo.GetAll();
-        var contactVms = contacts.Select(c => new ContactViewModel(messenger, contactRepo, phoneDialer, sms)
+        contactList = contacts.Select(c => new ContactViewModel(messenger, contactRepo, phoneDialer, sms, shell)
         {
             ContactId = c.Id,
             ContactName = c.Name ?? string.Empty,
             ContactNumber = c.Number ?? string.Empty,
             ContactColor = Color.FromRgb(c.ColorR, c.ColorG, c.ColorB)
         });
-        ContactList = new(contactVms);
+        FilteredContactList = new(contactList);
+
+        SearchText = string.Empty;
+    }
+
+    private IEnumerable<ContactViewModel> FilterContacts(IEnumerable<ContactViewModel> contactVms)
+    {
+        if (!string.IsNullOrWhiteSpace(SearchText))
+        {
+            return contactVms.Where(c => c.ContactName.Contains(SearchText));
+        }
+        return contactVms;
     }
 }

@@ -3,6 +3,7 @@
                xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:views="clr-namespace:DcaClient.Common.Views"
+               xmlns:behaviors="clr-namespace:DcaClient.Common.Behaviors"
                xmlns:res="clr-namespace:DcaClient.Resources"
                xmlns:local="clr-namespace:DcaClient.Features.Contacts"
                x:Class="DcaClient.Common.Popups.ContactPopup"
@@ -18,6 +19,7 @@
                         <Label Text="Contact name" />
                         <Entry Text="{Binding ContactName}">
                             <Entry.Behaviors>
+                                <behaviors:SelectAllTextOnFocusedBehavior />
                                 <toolkit:TextValidationBehavior
                                     InvalidStyle="{StaticResource InvalidEntryStyle}"
                                     ValidStyle="{StaticResource ValidEntryStyle}"

@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:local="clr-namespace:DcaClient.Features.Contacts"
+             xmlns:behaviors="clr-namespace:DcaClient.Common.Behaviors"
              x:Class="DcaClient.Features.Contacts.Mobile.ContactListPageMobile"
              x:DataType="local:ContactListViewModel">
     <Grid RowDefinitions="Auto,Auto,*" RowSpacing="10" Padding="10">
         <Label Grid.Row="0" FontSize="Title" Text="Demo Contacts App" />
         <Border Grid.Row="1">
-            <Entry Text="{Binding SearchText}" />
+            <Entry Text="{Binding SearchText}">
+                <Entry.Behaviors>
+                    <behaviors:SelectAllTextOnFocusedBehavior />
+                    <toolkit:UserStoppedTypingBehavior 
+                        Command="{Binding SearchContactsCommand}"
+                        StoppedTypingTimeThreshold="1000"
+                        MinimumLengthThreshold="0"
+                        ShouldDismissKeyboardAutomatically="False" />
+                </Entry.Behaviors>
+            </Entry>
         </Border>
         <ScrollView Grid.Row="2">
-            <VerticalStackLayout Spacing="10" BindableLayout.ItemsSource="{Binding ContactList}">
+            <VerticalStackLayout Spacing="10" BindableLayout.ItemsSource="{Binding FilteredContactList}">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="local:ContactViewModel">
                         <HorizontalStackLayout Spacing="10" BackgroundColor="Transparent">

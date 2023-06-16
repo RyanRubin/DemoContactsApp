@@ -80,22 +80,21 @@ public class ContactViewModel : INotifyPropertyChanged
     private readonly IRepository<ContactEntity> contactRepo;
     private readonly IPhoneDialer phoneDialer;
     private readonly ISms sms;
-    private readonly Shell shell;
+    private readonly IClientShell shell;
 
-    public ContactViewModel(IMessenger messenger, IRepository<ContactEntity> contactRepo, IPhoneDialer phoneDialer, ISms sms, Shell? shell = null)
+    public ContactViewModel(IMessenger messenger, IRepository<ContactEntity> contactRepo, IPhoneDialer phoneDialer, ISms sms, IClientShell shell)
     {
         this.messenger = messenger;
         this.contactRepo = contactRepo;
         this.phoneDialer = phoneDialer;
         this.sms = sms;
-        this.shell = shell ?? RequiredServiceProvider.GetRequiredService<Shell>();
+        this.shell = shell;
         SetCommands();
     }
 
     private void SetCommands()
     {
-        //CallContactCommand = new CallContactCommand(this, phoneDialer, shell);
-        CallContactCommand = new CallContactCommand(this);
+        CallContactCommand = new CallContactCommand(this, phoneDialer, shell);
         TextContactCommand = new TextContactCommand(this, sms);
         EditContactCommand = new EditContactCommand(this, messenger);
         SaveContactCommand = new SaveContactCommand(this, messenger, contactRepo);

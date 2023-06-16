@@ -41,8 +41,7 @@ public static class MauiProgram
         builder.Services.AddTransient<ContactViewModel>();
 
         builder.Services.AddSingleton<IMessenger>(_ => WeakReferenceMessenger.Default);
-        builder.Services.AddSingleton(_ => Shell.Current);
-        builder.Services.AddSingleton<INavigator, Navigator>();
+        builder.Services.AddSingleton<IClientShell, ClientShell>();
         builder.Services.AddSingleton(_ => PhoneDialer.Default);
         builder.Services.AddSingleton(_ => Sms.Default);
 

@@ -10,13 +10,13 @@ public class CallContactCommand : ICommand
 
     private readonly ContactViewModel vm;
     private readonly IPhoneDialer phoneDialer;
-    private readonly Shell shell;
+    private readonly IClientShell shell;
 
-    public CallContactCommand(ContactViewModel vm, IPhoneDialer? phoneDialer = null, Shell? shell = null)
+    public CallContactCommand(ContactViewModel vm, IPhoneDialer phoneDialer, IClientShell shell)
     {
         this.vm = vm;
-        this.phoneDialer = phoneDialer ?? RequiredServiceProvider.GetRequiredService<IPhoneDialer>();
-        this.shell = shell ?? RequiredServiceProvider.GetRequiredService<Shell>();
+        this.phoneDialer = phoneDialer;
+        this.shell = shell;
     }
 
     public bool CanExecute(object? parameter)
@@ -33,8 +33,8 @@ public class CallContactCommand : ICommand
 
         if (!phoneDialer.IsSupported || isWindows)
         {
-            shell.CurrentPage.DisplaySnackbar("Phone dialer is not supported.");
-            shell.CurrentPage.DisplayAlert(string.Empty, "Phone dialer is not supported.", "OK");
+            shell.DisplaySnackbar("Phone dialer is not supported.");
+            shell.DisplayAlert(string.Empty, "Phone dialer is not supported.", "OK");
             return;
         }
 
