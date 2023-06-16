@@ -38,7 +38,7 @@
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
                 <BindableLayout.EmptyView>
-                    <Label Text="No contacts" HorizontalOptions="Center" />
+                    <Label Text="No contacts found" HorizontalOptions="Center" />
                 </BindableLayout.EmptyView>
             </VerticalStackLayout>
         </ScrollView>
