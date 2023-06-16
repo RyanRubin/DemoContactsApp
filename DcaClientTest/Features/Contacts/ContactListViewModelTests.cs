@@ -31,7 +31,7 @@ public class ContactListViewModelTests
         await systemUnderTest.InitializeViewModel();
 
         var expected = testData;
-        var actual = systemUnderTest.ContactList;
+        var actual = systemUnderTest.FilteredContactList;
         Assert.Collection(actual, actual0 =>
         {
             Assert.Equal(expected[0].Name, actual0.ContactName);
